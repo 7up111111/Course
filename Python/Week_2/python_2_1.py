@@ -8,21 +8,12 @@ def input_int(a, b):
         print("Введите число от " + str(a) + " до " + str(b))
         guess = input()
         if guess.isdigit() and a <= int(guess) <= b:
-            print("Вы ввели число!")
+            print("Вы правильное число!")
             tracker = 1
         
-        
-
-    #while not guess.isdigit() and a <= int(guess) <= b:
-    #    print("Введите число: ")
-    #    guess = input()
-    
-    #while a <= int(guess) <= b:
-    #    print("a <= guess <= b")
-
 min_value = 1
 max_value = 9
 
 input_int(min_value, max_value);
 
-#input()
+input()
