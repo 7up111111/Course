@@ -1,3 +1,9 @@
+# Задание 2.4.
+# Напишите функцию fibo так, чтобы она вычислялась эффективно,
+# то есть безрекурсии.
+
+# http://heller.ru/course/viewtopic.php?f=7&t=24
+
 print("Week 2 @ 2.3")
 
 def fibo_with_recursion(n):
