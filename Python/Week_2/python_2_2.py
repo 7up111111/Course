@@ -19,20 +19,83 @@
 
 print("Week 2 @ 2.2")
 
+# на 32 выдает ошибку
 def maximum_prime(n):
     k = 2
-    prime_number = round(n / k)
+    prime_number = int(n / k)
     while n % prime_number != 0:
-        print(prime_number)
+        print("prime_number = " + str(prime_number) +
+              " k = " + str(k))
         k += 1
-        prime_number = round(n / k)
+        prime_number = int(n / k)
         if prime_number <= 2: return n
     return maximum_prime(prime_number)
+
+# Решение photoindra работает правильно но тоже долго,
+# немного улучшил скорость mlt = mlt // 2
+def maximum_prime2(n):
+    mlt = n // 2
+    result = n
+    while result != 1 and mlt != 1:
+        if result % mlt != 0:
+            #print("result % mlt != 0 /// result = " + str(result) +
+            #      " mlt = " + str(mlt))
+            mlt -= 1
+        else:
+            #print("result % mlt == 0 /// result = " + str(result) +
+            #      " mlt = " + str(mlt))
+            result = mlt
+            mlt = mlt // 2
+    return result
+
+# Решение Хеллера
+
+def divide_out(x, divisor):
+    """Divide x iteratively on divisor until it can be divided"""
+    while x % divisor == 0: x //= divisor
+    return x
+
+def maximum_prime3(x):
+    """Gets maximum prime divisor"""
+    if x == 1: return 1
+    x = divide_out(x, 2)
+    if x == 1: return 2
+    x = divide_out(x, 3)
+    if x == 1: return 3
+    k = 1
+    while True:
+        d = 3 * k - 1
+        x = divide_out(x, d)
+        if x == 1: return d
+        d = 3 * k + 1
+        x = divide_out(x, d)
+        if x == 1: return d
+        k += 1
+
+import time
+
+def compare_functions(f, g, arg):
+    i = 0
+    t1 = 0
+    t2 = 0
+    while i < 10:
+        last_time = time.clock()
+        f(arg)
+        t1 += time.clock() - last_time
+        last_time = time.clock()
+        g(arg)
+        t2 += time.clock() - last_time
+        i += 1
+    print("TIME photoindra = " + str(t1) + " TIME heller = " + str(t2))
+    return t1 / t2
 
 print("Введите целое число: ")
 
 guess = int(input())
 
-print("maximum_prime (" +str(guess) + ") = " + str(maximum_prime(guess)))
+#print("maximum_prime   (" +str(guess) + ") = " + str(maximum_prime(guess)))
+#print("maximum_prime 2 (" +str(guess) + ") = " + str(maximum_prime2(guess)))
+#print("maximum_prime 3 (" +str(guess) + ") = " + str(maximum_prime3(guess)))
+print("compare_functions = " + str(compare_functions(maximum_prime2, maximum_prime3, guess)))
 
 input()
